@@ -24,6 +24,7 @@ ncbi_gb_parser <- function(gb_file) { # gb_file: directory to the sequence.gb.tx
                            str_extract(split.txt, "(?<=isolation_source=\").*(\n                     [A-Za-z0-9% ]+)*(?=\"\n                     )"))
   location <- gsub("\n                     "," ", 
                    str_extract(split.txt, "(?<=country=\").*(\n                     [A-Za-z0-9% ]+)*(?=\"\n[                          rRNA])"))
+  lat_lon <- str_extract(split.txt, "(?<=lat_lon=\").*(?=\")")
   product <- str_extract(split.txt, "(?<=product=\").*(?=\")")
   
   df <- data.frame('accession' <- accession,
@@ -35,6 +36,7 @@ ncbi_gb_parser <- function(gb_file) { # gb_file: directory to the sequence.gb.tx
                    'mol_type' <- mol_type,
                    'isolation_source' <- isolation_source,
                    'location' <- location,
+                   'lat_lon' <- lat_lon,
                    'product' <- product)
   colnames(df) <- c('accession', 
                     'length',
@@ -45,6 +47,7 @@ ncbi_gb_parser <- function(gb_file) { # gb_file: directory to the sequence.gb.tx
                     'mol_type',
                     'isolation_source',
                     'location',
+                    'lat_lon',
                     'product')
   return(df)
 }
