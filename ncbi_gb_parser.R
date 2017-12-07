@@ -19,6 +19,8 @@ ncbi_gb_parser <- function(gb_file) { # gb_file: directory to the sequence.gb.tx
   org_source <- str_extract(split.txt, "(?<=\nSOURCE      ).*")
   organism <- gsub("\n            "," ", 
                    str_extract(split.txt, "(?<=\n  ORGANISM  ).*(\n            .*)*"))
+  title <- gsub("\n            "," ", 
+                   str_extract(split.txt, "(?<=\n  TITLE  ).*(\n            .*)*"))
   mol_type <- str_extract(split.txt, "(?<=mol_type=\").*(?=\")")
   isolation_source <- gsub("\n                     "," ", 
                            str_extract(split.txt, "(?<=isolation_source=\").*(\n                     [A-Za-z0-9% ]+)*(?=\"\n                     )"))
@@ -33,6 +35,7 @@ ncbi_gb_parser <- function(gb_file) { # gb_file: directory to the sequence.gb.tx
                    'keyword' <- keyword,
                    'org_source' <- org_source,
                    'organism' <- organism,
+                   'title' <- title,
                    'mol_type' <- mol_type,
                    'isolation_source' <- isolation_source,
                    'location' <- location,
@@ -44,6 +47,7 @@ ncbi_gb_parser <- function(gb_file) { # gb_file: directory to the sequence.gb.tx
                     'keyword',
                     'org_source',
                     'organism',
+                    'title',
                     'mol_type',
                     'isolation_source',
                     'location',
